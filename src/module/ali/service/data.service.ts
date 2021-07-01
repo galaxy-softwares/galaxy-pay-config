@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { AlipayConfig } from '../interfaces';
+import { Injectable } from '@nestjs/common'
+import { AlipayConfig } from '../interfaces'
 import {
   AlipayDataDataserviceBillDownloadurlQueryBizContent,
   AlipayDataDataserviceBillDownloadurlQueryRes,
-  AlipayDataDataserviceBillDownloadurlQueryResData,
-} from '../interfaces/data.interface';
-import { AliPayBaseService } from './base.service';
+  AlipayDataDataserviceBillDownloadurlQueryResData
+} from '../interfaces/data.interface'
+import { AliPayBaseService } from './base.service'
 
 @Injectable()
 export class AliDataPayService extends AliPayBaseService {
@@ -16,23 +16,16 @@ export class AliDataPayService extends AliPayBaseService {
    */
   async dataserviceBillDownloadurlQuery(
     biz_content: AlipayDataDataserviceBillDownloadurlQueryBizContent,
-    alipay_config: AlipayConfig,
+    alipay_config: AlipayConfig
   ): Promise<AlipayDataDataserviceBillDownloadurlQueryRes> {
     try {
-      const url = this.processParams(
-        biz_content,
-        'alipay.data.dataservice.bill.downloadurl.query',
-        alipay_config,
-      );
-      const {
-        alipay_data_dataservice_bill_downloadurl_query_response,
-      } = await this.requestUtil.post<AlipayDataDataserviceBillDownloadurlQueryResData>(
-        url,
-        alipay_config.public_key,
-      );
-      return alipay_data_dataservice_bill_downloadurl_query_response;
+      const url = this.processParams(biz_content, 'alipay.data.dataservice.bill.downloadurl.query', alipay_config)
+      const { alipay_data_dataservice_bill_downloadurl_query_response } = await this.requestUtil.post<
+        AlipayDataDataserviceBillDownloadurlQueryResData
+      >(url, alipay_config.public_key)
+      return alipay_data_dataservice_bill_downloadurl_query_response
     } catch (e) {
-      throw new Error(e.toString());
+      throw new Error(e.toString())
     }
   }
 }

@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { AliPayBaseService } from './base.service';
-import { AlipayConfig } from '../interfaces/base.interface';
-import { AlipayTradePageBizContent } from '../interfaces/page.interface';
+import { Injectable } from '@nestjs/common'
+import { AliPayBaseService } from './base.service'
+import { AlipayConfig } from '../interfaces/base.interface'
+import { AlipayTradePageBizContent } from '../interfaces/page.interface'
 
 @Injectable()
 export class AliPagePayService extends AliPayBaseService {
@@ -12,6 +12,6 @@ export class AliPagePayService extends AliPayBaseService {
    * @param private_key srting
    */
   pay(biz_content: AlipayTradePageBizContent, alipay_cconfig: AlipayConfig): string {
-    return this.processParams(biz_content, 'alipay.trade.page.pay', alipay_cconfig);
+    return this.processParams(biz_content, 'alipay.trade.page.pay', alipay_cconfig)
   }
 }

@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { AliPayBaseService } from './base.service';
-import { AlipayConfig } from '../interfaces/base.interface';
+import { Injectable } from '@nestjs/common'
+import { AliPayBaseService } from './base.service'
+import { AlipayConfig } from '../interfaces/base.interface'
 import {
   AlipayFundTransCommonQueryBizContent,
   AlipayFundTransCommonQueryRes,
@@ -9,8 +9,8 @@ import {
   AlipayFundTransOrderQueryResData,
   AlipayFundTransUniTransferBizContent,
   AlipayFundTransUniTransferRes,
-  AlipayFundTransUniTransferResData,
-} from '../interfaces';
+  AlipayFundTransUniTransferResData
+} from '../interfaces'
 
 @Injectable()
 export class AliFundPayService extends AliPayBaseService {
@@ -21,16 +21,16 @@ export class AliFundPayService extends AliPayBaseService {
    */
   async transUniTransfer(
     biz_content: AlipayFundTransUniTransferBizContent,
-    alipay_config: AlipayConfig,
+    alipay_config: AlipayConfig
   ): Promise<AlipayFundTransUniTransferRes> {
     try {
-      const url = this.processParams(biz_content, 'alipay.fund.trans.uni.transfer', alipay_config);
+      const url = this.processParams(biz_content, 'alipay.fund.trans.uni.transfer', alipay_config)
       const { alipay_fund_trans_uni_transfer_response } = await this.requestUtil.post<
         AlipayFundTransUniTransferResData
-      >(url, alipay_config.public_key);
-      return alipay_fund_trans_uni_transfer_response;
+      >(url, alipay_config.public_key)
+      return alipay_fund_trans_uni_transfer_response
     } catch (e) {
-      throw new Error(e.toString());
+      throw new Error(e.toString())
     }
   }
 
@@ -41,16 +41,17 @@ export class AliFundPayService extends AliPayBaseService {
    */
   async transOrderQuery(
     biz_content: AlipayFundTransUniTransferBizContent,
-    alipay_config: AlipayConfig,
+    alipay_config: AlipayConfig
   ): Promise<AlipayFundTransOrderQueryRes> {
     try {
-      const url = this.processParams(biz_content, 'alipay.fund.trans.order.query', alipay_config);
-      const { alipay_fund_trans_order_query_response } = await this.requestUtil.post<
-        AlipayFundTransOrderQueryResData
-      >(url, alipay_config.public_key);
-      return alipay_fund_trans_order_query_response;
+      const url = this.processParams(biz_content, 'alipay.fund.trans.order.query', alipay_config)
+      const { alipay_fund_trans_order_query_response } = await this.requestUtil.post<AlipayFundTransOrderQueryResData>(
+        url,
+        alipay_config.public_key
+      )
+      return alipay_fund_trans_order_query_response
     } catch (e) {
-      throw new Error(e.toString());
+      throw new Error(e.toString())
     }
   }
 
@@ -61,16 +62,16 @@ export class AliFundPayService extends AliPayBaseService {
    */
   async transCommonQuery(
     biz_content: AlipayFundTransCommonQueryBizContent,
-    alipay_config: AlipayConfig,
+    alipay_config: AlipayConfig
   ): Promise<AlipayFundTransCommonQueryRes> {
     try {
-      const url = this.processParams(biz_content, 'alipay.fund.trans.common.query', alipay_config);
+      const url = this.processParams(biz_content, 'alipay.fund.trans.common.query', alipay_config)
       const { alipay_fund_trans_common_query_response } = await this.requestUtil.post<
         AlipayFundTransCommonQueryResData
-      >(url, alipay_config.public_key);
-      return alipay_fund_trans_common_query_response;
+      >(url, alipay_config.public_key)
+      return alipay_fund_trans_common_query_response
     } catch (e) {
-      throw new Error(e.toString());
+      throw new Error(e.toString())
     }
   }
 }

@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import * as xml2js from 'xml2js';
+import { Injectable } from '@nestjs/common'
+import * as xml2js from 'xml2js'
 /**
  * XML 工具
  */
@@ -11,7 +11,7 @@ export class XmlUtil {
    * @param obj 对象
    */
   convertObjToXml(obj) {
-    return new xml2js.Builder({ rootName: 'xml', cdata: true }).buildObject(obj);
+    return new xml2js.Builder({ rootName: 'xml', cdata: true }).buildObject(obj)
   }
 
   /**
@@ -23,10 +23,10 @@ export class XmlUtil {
     return new Promise<T>((resolve, reject) => {
       xml2js.parseString(xml, { explicitRoot: false, explicitArray: false }, (error, result) => {
         if (error) {
-          reject(error);
+          reject(error)
         }
-        resolve(result);
-      });
-    });
+        resolve(result)
+      })
+    })
   }
 }

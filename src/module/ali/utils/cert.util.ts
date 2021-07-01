@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import bignumber from 'bignumber.js';
-import * as crypto from 'crypto';
-import * as x509 from '@fidm/x509';
+import { Injectable } from '@nestjs/common'
+import * as fs from 'fs'
+import bignumber from 'bignumber.js'
+import * as crypto from 'crypto'
+import * as x509 from '@fidm/x509'
 
 /**
  * 支付宝证书工具
@@ -18,20 +18,20 @@ export class AliCertUtil {
   public getCertPattern(
     app_cert_sn_path: string,
     alipay_root_cert_sn_path: string,
-    alipay_public_cert_path: string,
+    alipay_public_cert_path: string
   ): {
-    app_cert_sn: string;
-    alipay_root_cert_sn: string;
-    public_key: string;
+    app_cert_sn: string
+    alipay_root_cert_sn: string
+    public_key: string
   } {
-    const app_cert_sn = this.getSNFromPath(app_cert_sn_path, false);
-    const alipay_root_cert_sn = this.getSNFromPath(alipay_root_cert_sn_path, true);
-    const public_key = this.loadPublicKeyFromPath(alipay_public_cert_path);
+    const app_cert_sn = this.getSNFromPath(app_cert_sn_path, false)
+    const alipay_root_cert_sn = this.getSNFromPath(alipay_root_cert_sn_path, true)
+    const public_key = this.loadPublicKeyFromPath(alipay_public_cert_path)
     return {
       app_cert_sn,
       alipay_root_cert_sn,
-      public_key,
-    };
+      public_key
+    }
   }
 
   /**
@@ -39,9 +39,9 @@ export class AliCertUtil {
    * @param file_path string
    */
   public loadPublicKeyFromPath(file_path: string): string {
-    const file_data = fs.readFileSync(file_path);
-    const certificate = x509.Certificate.fromPEM(file_data);
-    return certificate.publicKeyRaw.toString('base64');
+    const file_data = fs.readFileSync(file_path)
+    const certificate = x509.Certificate.fromPEM(file_data)
+    return certificate.publicKeyRaw.toString('base64')
   }
 
   /**
@@ -50,8 +50,8 @@ export class AliCertUtil {
    * @param isRoot string
    */
   public getSNFromPath(file_path: string, is_root = false): string {
-    const file_data = fs.readFileSync(file_path);
-    return this.getSN(file_data, is_root);
+    const file_data = fs.readFileSync(file_path)
+    return this.getSN(file_data, is_root)
   }
 
   /**
@@ -61,13 +61,13 @@ export class AliCertUtil {
    */
   public getSN(file_data: string | Buffer, is_root = false): string {
     if (typeof file_data == 'string') {
-      file_data = Buffer.from(file_data);
+      file_data = Buffer.from(file_data)
     }
     if (is_root) {
-      return this.getRootCertSN(file_data);
+      return this.getRootCertSN(file_data)
     }
-    const certificate = x509.Certificate.fromPEM(file_data);
-    return this.getCertSN(certificate);
+    const certificate = x509.Certificate.fromPEM(file_data)
+    return this.getCertSN(certificate)
   }
 
   /**
@@ -75,20 +75,20 @@ export class AliCertUtil {
    * @param certificate string
    */
   public getCertSN(certificate: any): string {
-    const { issuer, serialNumber } = certificate;
+    const { issuer, serialNumber } = certificate
     const principalName = issuer.attributes
       .reduceRight((prev, curr) => {
-        const { shortName, value } = curr;
-        const result = `${prev}${shortName}=${value},`;
-        return result;
+        const { shortName, value } = curr
+        const result = `${prev}${shortName}=${value},`
+        return result
       }, '')
-      .slice(0, -1);
-    const decimalNumber = new bignumber(serialNumber, 16).toString(10);
+      .slice(0, -1)
+    const decimalNumber = new bignumber(serialNumber, 16).toString(10)
     const SN = crypto
       .createHash('md5')
       .update(principalName + decimalNumber, 'utf8')
-      .digest('hex');
-    return SN;
+      .digest('hex')
+    return SN
   }
 
   /**
@@ -96,18 +96,18 @@ export class AliCertUtil {
    * @param rootContent string
    */
   public getRootCertSN(root_rontent: Buffer): string {
-    const certificates = x509.Certificate.fromPEMs(root_rontent);
-    let rootCertSN = '';
-    certificates.forEach((item) => {
+    const certificates = x509.Certificate.fromPEMs(root_rontent)
+    let rootCertSN = ''
+    certificates.forEach(item => {
       if (item.signatureOID.startsWith('1.2.840.113549.1.1')) {
-        const SN = this.getCertSN(item);
+        const SN = this.getCertSN(item)
         if (rootCertSN.length === 0) {
-          rootCertSN += SN;
+          rootCertSN += SN
         } else {
-          rootCertSN += `_${SN}`;
+          rootCertSN += `_${SN}`
         }
       }
-    });
-    return rootCertSN;
+    })
+    return rootCertSN
   }
 }

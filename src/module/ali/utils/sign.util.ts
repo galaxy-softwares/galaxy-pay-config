@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { createVerify, createSign } from 'crypto';
-import { AlipayRequestParam } from '../interfaces/base.interface';
+import { Injectable } from '@nestjs/common'
+import { createVerify, createSign } from 'crypto'
+import { AlipayRequestParam } from '../interfaces/base.interface'
 
 /**
  * 支付宝工具
@@ -12,11 +12,11 @@ export class AliSignUtil {
    * @param obj
    */
   copy(obj: { [k: string]: string | number | any }) {
-    const ret = {};
+    const ret = {}
     for (const k in obj) {
-      ret[k] = obj[k];
+      ret[k] = obj[k]
     }
-    return ret;
+    return ret
   }
 
   /**
@@ -24,29 +24,29 @@ export class AliSignUtil {
    * @param params
    */
   encodeParams(
-    params: AlipayRequestParam,
+    params: AlipayRequestParam
   ): {
-    unencode: string;
-    encode: string;
+    unencode: string
+    encode: string
   } {
-    const keys = [];
+    const keys = []
     for (const k in params) {
-      if (params[k] !== undefined && params[k] !== '') keys.push(k);
+      if (params[k] !== undefined && params[k] !== '') keys.push(k)
     }
-    keys.sort();
-    let unencodeStr = '';
-    let encodeStr = '';
-    const len = keys.length;
+    keys.sort()
+    let unencodeStr = ''
+    let encodeStr = ''
+    const len = keys.length
     for (let i = 0; i < len; ++i) {
-      const k = keys[i];
+      const k = keys[i]
       if (i !== 0) {
-        unencodeStr += '&';
-        encodeStr += '&';
+        unencodeStr += '&'
+        encodeStr += '&'
       }
-      unencodeStr += k + '=' + params[k];
-      encodeStr += k + '=' + encodeURIComponent(params[k]);
+      unencodeStr += k + '=' + params[k]
+      encodeStr += k + '=' + encodeURIComponent(params[k])
     }
-    return { unencode: unencodeStr, encode: encodeStr };
+    return { unencode: unencodeStr, encode: encodeStr }
   }
 
   /**
@@ -57,10 +57,10 @@ export class AliSignUtil {
    * @returns {Boolean}
    */
   signVerify(str: string, sign: string, publicKey: string): boolean {
-    const verify = createVerify('RSA-SHA256');
-    verify.update(str, 'utf8');
-    const result = verify.verify(publicKey, sign, 'base64');
-    return result;
+    const verify = createVerify('RSA-SHA256')
+    verify.update(str, 'utf8')
+    const result = verify.verify(publicKey, sign, 'base64')
+    return result
   }
 
   /**
@@ -69,10 +69,10 @@ export class AliSignUtil {
    * @param public_key
    */
   responSignVerify(response: { [k: string]: string | number | any }, public_key: string): boolean {
-    const ret: any = this.copy(response);
-    const sign = ret['sign'];
-    delete ret.sign;
-    delete ret.sign_type;
+    const ret: any = this.copy(response)
+    const sign = ret['sign']
+    delete ret.sign
+    delete ret.sign_type
     const response_type = [
       'alipay_trade_app_pay_response',
       'alipay_trade_create_response',
@@ -84,20 +84,20 @@ export class AliSignUtil {
       'alipay_trade_close_response',
       'alipay_trade_order_settle_response',
       'alipay_trade_fastpay_refund_query_response',
-      'alipay_fund_trans_uni_transfer_response',
-    ];
+      'alipay_fund_trans_uni_transfer_response'
+    ]
     const res = response_type.reduce(function (prev, currentType) {
-      if (currentType in ret) return ret[currentType];
-      return prev;
-    }, null);
+      if (currentType in ret) return ret[currentType]
+      return prev
+    }, null)
 
     if (res) {
       // 如果字符串中包含“http://”的正斜杠， 需要进行转义 有坑，须注意。
       // 譬如https://qr.alipay.com/bax01627rhk9yrptdnqc000a  需要转义成 "https:\\/\\/qr.alipay.com\\/bax01627rhk9yrptdnqc000a"
-      return this.signVerify(JSON.stringify(res).replace(/\//g, '\\/'), sign, public_key);
+      return this.signVerify(JSON.stringify(res).replace(/\//g, '\\/'), sign, public_key)
     } else {
-      const tmp = this.encodeParams(ret);
-      return this.signVerify(tmp.unencode, sign, public_key);
+      const tmp = this.encodeParams(ret)
+      return this.signVerify(tmp.unencode, sign, public_key)
     }
   }
 
@@ -110,8 +110,8 @@ export class AliSignUtil {
    * @returns {String}
    */
   sign(str: string, private_key: string): string {
-    const sha = createSign('RSA-SHA256');
-    sha.update(str, 'utf8');
-    return sha.sign(private_key, 'base64');
+    const sha = createSign('RSA-SHA256')
+    sha.update(str, 'utf8')
+    return sha.sign(private_key, 'base64')
   }
 }

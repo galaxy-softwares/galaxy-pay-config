@@ -1,18 +1,18 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { AliRequestUtil } from '../utils/request.util';
-import { AliParamsUtil } from '../utils/params.util';
-import { AliSignUtil } from '../utils/sign.util';
-import { AlipayConfig, AlipayRequestParam } from '../interfaces/base.interface';
-import * as moment from 'moment';
+import { Injectable, Inject } from '@nestjs/common'
+import { AliRequestUtil } from '../utils/request.util'
+import { AliParamsUtil } from '../utils/params.util'
+import { AliSignUtil } from '../utils/sign.util'
+import { AlipayConfig, AlipayRequestParam } from '../interfaces/base.interface'
+import * as moment from 'moment'
 
 @Injectable()
 export class AliPayBaseService {
-  protected alipay_gate_way = 'https://openapi.alipay.com/gateway.do?';
+  protected alipay_gate_way = 'https://openapi.alipay.com/gateway.do?'
 
   constructor(
     @Inject(AliRequestUtil) protected readonly requestUtil: AliRequestUtil,
     @Inject(AliParamsUtil) protected readonly paramsUtil: AliParamsUtil,
-    @Inject(AliSignUtil) protected readonly singinUtil: AliSignUtil,
+    @Inject(AliSignUtil) protected readonly singinUtil: AliSignUtil
   ) {}
 
   /**
@@ -24,13 +24,13 @@ export class AliPayBaseService {
    */
   processParams<T>(biz_content: T, method: string, alipay_config: AlipayConfig): string {
     if (!alipay_config.appid) {
-      throw Error('支付宝appid 必须传递！');
+      throw Error('支付宝appid 必须传递！')
     }
     if (!alipay_config.private_key) {
-      throw Error('支付宝private_key 必须传递！');
+      throw Error('支付宝private_key 必须传递！')
     }
     if (!alipay_config.public_key) {
-      throw Error('支付宝public_key 必须传递！');
+      throw Error('支付宝public_key 必须传递！')
     }
     const request_param: AlipayRequestParam = {
       app_id: alipay_config.appid,
@@ -43,26 +43,26 @@ export class AliPayBaseService {
       return_url: alipay_config.return_url,
       method: method,
       biz_content: JSON.stringify({
-        ...biz_content,
-      }),
-    };
+        ...biz_content
+      })
+    }
     /**
      * 如果是证书模式，在请求的参数上加上证书
      */
     if (alipay_config.app_cert_sn && alipay_config.alipay_root_cert_sn) {
-      request_param.app_cert_sn = alipay_config.app_cert_sn;
-      request_param.alipay_root_cert_sn = alipay_config.alipay_root_cert_sn;
+      request_param.app_cert_sn = alipay_config.app_cert_sn
+      request_param.alipay_root_cert_sn = alipay_config.alipay_root_cert_sn
     }
     try {
-      const { encode, unencode } = this.paramsUtil.encodeParams(request_param);
-      const sign = this.singinUtil.sign(unencode, alipay_config.private_key);
+      const { encode, unencode } = this.paramsUtil.encodeParams(request_param)
+      const sign = this.singinUtil.sign(unencode, alipay_config.private_key)
       if (method === 'alipay.trade.app.pay') {
-        return `${encode}&sign=` + encodeURIComponent(sign);
+        return `${encode}&sign=` + encodeURIComponent(sign)
       } else {
-        return `${this.alipay_gate_way}${encode}&sign=` + encodeURIComponent(sign);
+        return `${this.alipay_gate_way}${encode}&sign=` + encodeURIComponent(sign)
       }
     } catch (e) {
-      throw new Error(e.toString());
+      throw new Error(e.toString())
     }
   }
 }

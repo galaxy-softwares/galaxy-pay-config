@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { AlipayRequestParam } from '../interfaces/base.interface';
+import { Injectable } from '@nestjs/common'
+import { AlipayRequestParam } from '../interfaces/base.interface'
 
 /**
  * 支付宝工具
@@ -12,28 +12,28 @@ export class AliParamsUtil {
    * @returns {Object}
    */
   encodeParams(
-    params: AlipayRequestParam,
+    params: AlipayRequestParam
   ): {
-    unencode: string;
-    encode: string;
+    unencode: string
+    encode: string
   } {
-    const keys = [];
+    const keys = []
     for (const k in params) {
-      if (params[k] !== undefined && params[k] !== '') keys.push(k);
+      if (params[k] !== undefined && params[k] !== '') keys.push(k)
     }
-    keys.sort();
-    let unencodeStr = '';
-    let encodeStr = '';
-    const len = keys.length;
+    keys.sort()
+    let unencodeStr = ''
+    let encodeStr = ''
+    const len = keys.length
     for (let i = 0; i < len; ++i) {
-      const k = keys[i];
+      const k = keys[i]
       if (i !== 0) {
-        unencodeStr += '&';
-        encodeStr += '&';
+        unencodeStr += '&'
+        encodeStr += '&'
       }
-      unencodeStr += k + '=' + params[k];
-      encodeStr += k + '=' + encodeURIComponent(params[k]);
+      unencodeStr += k + '=' + params[k]
+      encodeStr += k + '=' + encodeURIComponent(params[k])
     }
-    return { unencode: unencodeStr, encode: encodeStr };
+    return { unencode: unencodeStr, encode: encodeStr }
   }
 }

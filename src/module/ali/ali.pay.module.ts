@@ -1,12 +1,12 @@
-import { Module, HttpModule } from '@nestjs/common';
-import { AliWapPayService } from './service/wap.pay.service';
-import { AliParamsUtil } from './utils/params.util';
-import { AliRequestUtil } from './utils/request.util';
-import { AliSignUtil } from './utils/sign.util';
-import { AliAppPayService } from './service/app.pay.service';
-import { AliPagePayService } from './service/page.pay.service';
-import { AliTradePayService } from './service/trade.pay.service';
-import { AliCertUtil } from './utils/cert.util';
+import { Module, HttpModule } from '@nestjs/common'
+import { AliWapPayService } from './service/wap.pay.service'
+import { AliParamsUtil } from './utils/params.util'
+import { AliRequestUtil } from './utils/request.util'
+import { AliSignUtil } from './utils/sign.util'
+import { AliAppPayService } from './service/app.pay.service'
+import { AliPagePayService } from './service/page.pay.service'
+import { AliTradePayService } from './service/trade.pay.service'
+import { AliCertUtil } from './utils/cert.util'
 
 @Module({
   imports: [HttpModule],
@@ -19,7 +19,7 @@ import { AliCertUtil } from './utils/cert.util';
     AliSignUtil,
     AliCertUtil,
     AliWapPayService,
-    AliTradePayService,
+    AliTradePayService
   ],
   exports: [
     AliPagePayService,
@@ -29,7 +29,7 @@ import { AliCertUtil } from './utils/cert.util';
     AliSignUtil,
     AliCertUtil,
     AliTradePayService,
-    AliWapPayService,
-  ],
+    AliWapPayService
+  ]
 })
 export class AliPayModule {}

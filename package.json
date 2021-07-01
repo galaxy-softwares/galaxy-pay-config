@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tsc --pretty && eslint . --ext ts --ext js",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "prettier": "prettier --write **/*.{js,ts}",
@@ -29,7 +29,7 @@
     }
   },
   "lint-staged": {
-    "*.@(ts)": "npm run lint"
+    "*.@(ts)": "yarn run prettier"
   },
   "commitlint": {
     "extends": [
@@ -66,6 +66,7 @@
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
+    "glob": "^7.1.7",
     "husky": "^4.3.0",
     "jest": "^25.1.0",
     "prettier": "^2.1.2",

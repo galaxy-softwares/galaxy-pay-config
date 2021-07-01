@@ -6,5 +6,5 @@ export enum WeChatTradeType {
   /** APP支付 */
   APP = 'APP',
   /** H5支付 */
-  MWEB = 'MWEB',
+  MWEB = 'MWEB'
 }
