@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { WeChatOtherPayOrderReqParam, WeChatOtherPayOrderRes } from '../interfaces/order.interface'
+import { WechatConfig, WeChatOtherPayOrderReqParam, WeChatOtherPayOrderRes } from '../interfaces'
 import { WeChatPayBaseService } from './base.service'
-import { WechatConfig } from '../interfaces/base.interface'
 import { WeChatTradeType } from '../enums/trade-type.enum'
 
 /**

@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
-import { WeChatMicroPayOrderReqParam, WeChatMicroPayOrderRes } from '../interfaces/order.interface'
+import { WechatConfig, WeChatMicroPayOrderReqParam, WeChatMicroPayOrderRes } from '../interfaces'
 import { WeChatPayBaseService } from './base.service'
-import { WechatConfig } from '../interfaces/base.interface'
 
 /**
  * 微信支付-付款码支付类

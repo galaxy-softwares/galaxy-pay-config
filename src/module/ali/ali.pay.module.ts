@@ -1,16 +1,9 @@
 import { Module, HttpModule } from '@nestjs/common'
-import { AliWapPayService } from './service/wap.pay.service'
-import { AliParamsUtil } from './utils/params.util'
-import { AliRequestUtil } from './utils/request.util'
-import { AliSignUtil } from './utils/sign.util'
-import { AliAppPayService } from './service/app.pay.service'
-import { AliPagePayService } from './service/page.pay.service'
-import { AliTradePayService } from './service/trade.pay.service'
-import { AliCertUtil } from './utils/cert.util'
+import { AliAppPayService, AliPagePayService, AliTradePayService, AliWapPayService } from './service'
+import { AliCertUtil, AliParamsUtil, AliRequestUtil, AliSignUtil } from './utils'
 
 @Module({
   imports: [HttpModule],
-  controllers: [],
   providers: [
     AliPagePayService,
     AliAppPayService,

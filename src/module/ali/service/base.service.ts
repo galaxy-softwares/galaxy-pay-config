@@ -1,8 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { AliRequestUtil } from '../utils/request.util'
-import { AliParamsUtil } from '../utils/params.util'
-import { AliSignUtil } from '../utils/sign.util'
-import { AlipayConfig, AlipayRequestParam } from '../interfaces/base.interface'
+import { AliRequestUtil, AliSignUtil, AliParamsUtil } from '../utils'
+import { AlipayConfig, AlipayRequestParam } from '../interfaces'
 import * as moment from 'moment'
 
 @Injectable()

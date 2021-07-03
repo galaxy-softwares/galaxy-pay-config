@@ -5,11 +5,13 @@ import {
   WeChatBaseCloseOrderReqParam,
   WeChatBaseCloseOrderRes,
   WeChatBaseQueryOrderReqParam,
-  WeChatBaseQueryOrderRes
-} from '../interfaces/order.interface'
-import { WeChatBaseQueryRefundReqParam, WeChatBaseQueryRefundRes } from '../interfaces/refund.interface'
+  WeChatBaseQueryOrderRes,
+  WeChatBaseQueryRefundReqParam,
+  WeChatBaseQueryRefundRes,
+  WechatConfig
+} from '../interfaces'
+import {} from '../interfaces'
 import { WeChatPayBaseService } from './base.service'
-import { WechatConfig } from '../interfaces/base.interface'
 
 /**
  * 微信支付-APP支付类

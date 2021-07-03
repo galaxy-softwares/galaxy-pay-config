@@ -1,0 +1,7 @@
+export * from './applet.pay.service'
+export * from './base.service'
+export * from './app.pay.service'
+export * from './native.pay.service'
+export * from './jsapi.pay.service'
+export * from './micro.pay.service'
+export * from './wap.pay.service'

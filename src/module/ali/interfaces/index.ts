@@ -1,3 +1,4 @@
+export * from '../interfaces/data.interface'
 export * from '../interfaces/app.interface'
 export * from '../interfaces/base.interface'
 export * from '../interfaces/fund.interface'

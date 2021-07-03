@@ -1,19 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common'
 import { WeChatRequestUtil } from '../utils/request.util'
-import {
-  WeChatBaseCloseOrderReqParam,
-  WeChatBaseCloseOrderRes,
-  WeChatBaseQueryOrderReqParam,
-  WeChatBaseQueryOrderRes
-} from '../interfaces/order.interface'
 import * as fs from 'fs'
 import * as https from 'https'
-import {
-  WeChatBaseQueryRefundRes,
-  WeChatBaseQueryRefundReqParam,
-  WeChatBaseRefundReqParam,
-  WeChatBaseRefundRes
-} from '../interfaces/refund.interface'
 import { WeChatSignUtil } from '../utils/sign.util'
 import { RandomUtil } from '../utils/random.util'
 import {
@@ -21,8 +9,16 @@ import {
   WeChatDownloadBillParam,
   WeChatDownloadBillRes,
   WechatDownloadFundFlowParam,
-  WechatDownloadFundFlowRes
-} from '../interfaces/base.interface'
+  WechatDownloadFundFlowRes,
+  WeChatBaseQueryRefundRes,
+  WeChatBaseQueryRefundReqParam,
+  WeChatBaseRefundReqParam,
+  WeChatBaseRefundRes,
+  WeChatBaseCloseOrderReqParam,
+  WeChatBaseCloseOrderRes,
+  WeChatBaseQueryOrderReqParam,
+  WeChatBaseQueryOrderRes
+} from '../interfaces'
 
 @Injectable()
 export class WeChatPayBaseService {

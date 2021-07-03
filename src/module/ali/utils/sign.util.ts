@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { createVerify, createSign } from 'crypto'
-import { AlipayRequestParam } from '../interfaces/base.interface'
+import { AlipayRequestParam } from '../interfaces'
 
 /**
  * 支付宝工具

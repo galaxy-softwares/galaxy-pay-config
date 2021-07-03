@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { AlipayConfig } from '../interfaces'
 import {
+  AlipayConfig,
   AlipayDataDataserviceBillDownloadurlQueryBizContent,
   AlipayDataDataserviceBillDownloadurlQueryRes,
   AlipayDataDataserviceBillDownloadurlQueryResData
-} from '../interfaces/data.interface'
+} from '../interfaces'
+
 import { AliPayBaseService } from './base.service'
 
 @Injectable()

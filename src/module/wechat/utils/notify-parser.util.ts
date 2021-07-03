@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { createDecipheriv, createHash } from 'crypto'
 import { IncomingMessage } from 'http'
-import { WeChatPayNotifyRes, WeChatRefundNotifyRes } from '../interfaces/notify.interface'
+import { WeChatPayNotifyRes, WeChatRefundNotifyRes } from '../interfaces'
 import { WeChatSignUtil } from './sign.util'
 import { XmlUtil } from './xml.util'
 

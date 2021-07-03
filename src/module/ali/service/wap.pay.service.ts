@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { AliPayBaseService } from './base.service'
-import { AlipayConfig } from '../interfaces/base.interface'
-import { AlipayTradeWapBizContent } from '../interfaces/wap.interface'
+import { AlipayConfig, AlipayTradeWapBizContent } from '../interfaces'
 
 @Injectable()
 export class AliWapPayService extends AliPayBaseService {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { AlipayRequestParam } from '../interfaces/base.interface'
+import { AlipayRequestParam } from '../interfaces'
 
 /**
  * 支付宝工具

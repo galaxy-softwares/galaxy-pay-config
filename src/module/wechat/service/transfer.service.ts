@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { WechatConfig } from '../interfaces'
 import {
+  WechatConfig,
   WeChatQueryTransferReqParam,
   WeChatQueryTransferRes,
   WeChatTransferReqParam,
