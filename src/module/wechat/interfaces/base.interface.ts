@@ -1,3 +1,10 @@
+/**
+ * 微信支付配置信息
+ */
+type BaseNotifyReturnUrl = Record<'notify_url' | 'return_url' | 'callback_url', string>
+export type WechatConfig = Record<'appid' | 'mch_id' | 'mch_key' | 'app_secret' | 'apiclient_cert', string> &
+  BaseNotifyReturnUrl
+
 /** 微信支付接口基础返回结果 */
 export interface WeChatBaseResponse {
   /** 返回状态码 */
@@ -20,21 +27,6 @@ export interface WeChatBaseResponse {
   err_code?: string
   /** 错误代码描述 */
   err_code_des?: string
-}
-
-/**
- * 微信支付配置信息
- */
-export interface WechatConfig {
-  appid: string
-  mch_id: string
-  mch_key: string
-  app_secret: string
-  /** 微信证书*/
-  apiclient_cert?: string | Buffer
-  notify_url: string
-  return_url: string
-  [key: string]: any
 }
 
 /** 微信交易账单下载 */

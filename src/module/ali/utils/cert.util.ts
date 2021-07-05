@@ -11,26 +11,23 @@ import * as x509 from '@fidm/x509'
 export class AliCertUtil {
   /**
    * 支付宝证书模式
-   * @param app_cert_sn_path string
-   * @param alipay_root_cert_sn_path string
-   * @param alipay_public_cert_path string
+   * @param app_cert_sn string 应用公钥证书  appCertPublicKey_xxxxxxx
+   * @param alipay_root_cert_sn_path string 支付宝公钥证书 alipayCertPublicKey_RSA2
+   * @param alipay_public_cert string  支付宝根证书 alipayRootCert
    */
   public getCertPattern(
-    app_cert_sn_path: string,
-    alipay_root_cert_sn_path: string,
-    alipay_public_cert_path: string
+    app_cert_sn: string,
+    public_key: string,
+    alipay_root_cert_sn: string
   ): {
     app_cert_sn: string
-    alipay_root_cert_sn: string
     public_key: string
+    alipay_root_cert_sn: string
   } {
-    const app_cert_sn = this.getSNFromPath(app_cert_sn_path, false)
-    const alipay_root_cert_sn = this.getSNFromPath(alipay_root_cert_sn_path, true)
-    const public_key = this.loadPublicKeyFromPath(alipay_public_cert_path)
     return {
-      app_cert_sn,
-      alipay_root_cert_sn,
-      public_key
+      app_cert_sn: this.getSNFromPath(app_cert_sn, false),
+      public_key: this.loadPublicKeyFromPath(public_key),
+      alipay_root_cert_sn: this.getSNFromPath(alipay_root_cert_sn, true)
     }
   }
 

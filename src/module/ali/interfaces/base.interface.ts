@@ -1,14 +1,18 @@
-export interface AlipayConfig {
-  appid: string
-  private_key: string
-  public_key: string
-  return_url: string
-  notify_url: string
-  app_cert_sn: string
-  alipay_root_cert_sn: string
-  [key: string]: any
-}
+// 支付宝基础信息
+type AlipayBaseConfig = Record<'appid' | 'certificate', string>
 
+// 支付宝公钥
+export type AlipayPublic = Record<'private_key' | 'public_key', string>
+
+// 支付宝公钥证书
+export type AlipayPublicCert = AlipayPublic & Partial<Record<'app_cert_sn' | 'alipay_root_cert_sn', string>>
+
+export type AlipayConfig = AlipayBaseConfig & AlipayPublicCert & AlipayPublic & BaseNotifyReturnUrl
+
+// 公用参数
+type BaseNotifyReturnUrl = Record<'notify_url' | 'return_url' | 'callback_url', string>
+
+export type ParamAny = { [k: string]: string | number | any }
 /**
  * 支付宝公共请求参数（支付宝支付请求公共参数全部一致）
  *  https://opendocs.alipay.com/apis/api_1 （支付宝alipay.treade.pay 统一收单交易支付接口）

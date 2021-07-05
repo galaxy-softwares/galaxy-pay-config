@@ -5,7 +5,7 @@ import * as moment from 'moment'
 
 @Injectable()
 export class AliPayBaseService {
-  protected alipay_gate_way = 'https://openapi.alipay.com/gateway.do?'
+  protected alipay_gate_way = 'https://openapi.alipaydev.com/gateway.do?'
 
   constructor(
     @Inject(AliRequestUtil) protected readonly requestUtil: AliRequestUtil,

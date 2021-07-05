@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { createVerify, createSign } from 'crypto'
-import { AlipayRequestParam } from '../interfaces'
+import { AlipayRequestParam, ParamAny } from '../interfaces'
 
 /**
  * 支付宝工具
@@ -11,7 +11,7 @@ export class AliSignUtil {
    * 潜拷贝
    * @param obj
    */
-  copy(obj: { [k: string]: string | number | any }) {
+  copy(obj: ParamAny) {
     const ret = {}
     for (const k in obj) {
       ret[k] = obj[k]
